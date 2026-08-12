@@ -2,12 +2,12 @@ importScripts('https://www.gstatic.com/firebasejs/12.1.0/firebase-app-compat.js'
 importScripts('https://www.gstatic.com/firebasejs/12.1.0/firebase-messaging-compat.js');
 
 firebase.initializeApp({
-  apiKey: 'AIzaSyCfHwfe9cE2lFRT2tTiQL6tUoi0JwWkuzc',
-  authDomain: 'versatile-media-mxhgq.firebaseapp.com',
-  projectId: 'versatile-media-mxhgq',
-  storageBucket: 'versatile-media-mxhgq.firebasestorage.app',
-  messagingSenderId: '726003942285',
-  appId: '1:726003942285:web:87c9257c6df01cf437b3c4',
+  apiKey: 'AIzaSyAL7KNxJLzQZzvs5SYk16uv4yqGUYYKPes',
+  authDomain: 'zalatte-diary-2026.firebaseapp.com',
+  projectId: 'zalatte-diary-2026',
+  storageBucket: 'zalatte-diary-2026.firebasestorage.app',
+  messagingSenderId: '922458466374',
+  appId: '1:922458466374:web:62c89833abd2b7216a4247',
 });
 
 self.addEventListener('install', () => self.skipWaiting());
