@@ -1,0 +1,6 @@
+{
+  "name": "김자라 박라떼",
+  "description": "김자라와 박라떼의 따뜻하고 귀여운 커플 비밀 다이어리",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

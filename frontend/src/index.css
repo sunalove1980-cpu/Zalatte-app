@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Single+Day&family=Inter:wght@400;500;600&display=swap');
+@import "tailwindcss" source(".");
+
+@theme {
+  --font-sans: "Gowun Dodum", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-hand: "Single Day", cursive;
+}
+
+body {
+  background-color: #FAF7F2; /* Soft warm off-white background from Natural Tones theme */
+  color: #44403c; /* Warm text-stone-700 for cozy feel */
+  font-family: var(--font-sans);
+}
+
+/* Redefine scrapbook styling helper classes to fit the elegant, minimalist Natural Tones theme */
+.scrapbook-border {
+  border: 1px solid #e7e5e4; /* border-stone-200 */
+}
+
+.scrapbook-shadow {
+  box-shadow: 0 4px 12px -2px rgba(87, 83, 78, 0.08), 0 2px 6px -1px rgba(87, 83, 78, 0.04);
+}
+
+.scrapbook-shadow-sm {
+  box-shadow: 0 2px 6px -1px rgba(87, 83, 78, 0.06);
+}
+
+.scrapbook-shadow-lg {
+  box-shadow: 0 10px 25px -5px rgba(87, 83, 78, 0.1), 0 8px 16px -6px rgba(87, 83, 78, 0.05);
+}
+
+.scrapbook-tape {
+  position: relative;
+}
+
+.scrapbook-tape::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-2deg);
+  width: 60px;
+  height: 16px;
+  background-color: rgba(251, 113, 133, 0.15); /* Delicate, semi-transparent warm pink highlight */
+  box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+  border-radius: 2px;
+}
+
+/* Custom minimal scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #FAF7F2;
+}
+::-webkit-scrollbar-thumb {
+  background: #e7e5e4; /* stone-200 */
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #d6d3d1; /* stone-300 */
+}
+
+/* Keep supporting text readable on small phones. */
+.text-\[8px\],
+.text-\[8\.5px\],
+.text-\[9px\],
+.text-\[10px\] {
+  font-size: 11px !important;
+  line-height: 1.35 !important;
+}
+
+button[title="삭제"],
+button[title="댓글 삭제"] {
+  min-width: 36px;
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}

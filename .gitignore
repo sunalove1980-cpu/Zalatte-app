@@ -1,0 +1,11 @@
+node_modules/
+frontend/dist/
+.env
+.env.*
+*.pem
+*.key
+*service-account*.json
+*serviceAccount*.json
+test-results/
+playwright-report/
+*.log

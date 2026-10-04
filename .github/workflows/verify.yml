@@ -1,0 +1,60 @@
+name: Verify source and Pages
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            frontend/package-lock.json
+      - run: npm ci
+      - run: npm run setup
+      - run: npx playwright install --with-deps chromium
+      - run: npm run check
+      - name: Check generated files were committed
+        run: |
+          git diff --exit-code
+          test -z "$(git ls-files --others --exclude-standard)"
+      - name: Record existing Pages settings and exact deployment
+        if: github.event_name != 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const { owner, repo } = context.repo;
+            const { data: settings } = await github.rest.repos.getPages({owner, repo});
+            const snapshot = {html_url:settings.html_url, build_type:settings.build_type, source:settings.source};
+            fs.writeFileSync('/tmp/pages-settings.json', JSON.stringify(snapshot,null,2));
+            console.log('PAGES SETTINGS:', JSON.stringify(snapshot));
+            for (let attempt=0;attempt<60;attempt++) {
+              const {data:build} = await github.rest.repos.getLatestPagesBuild({owner,repo});
+              if (build.commit === context.sha && build.status === 'built') {
+                console.log('PAGES EXACT COMMIT VERIFIED:', build.commit);
+                return;
+              }
+              if (build.commit === context.sha && build.status === 'errored') throw new Error('Pages build failed');
+              await new Promise(r=>setTimeout(r,10000));
+            }
+            throw new Error('Pages did not finish the exact commit');
+      - name: Verify live URL and every generated asset
+        if: github.event_name != 'pull_request'
+        run: node scripts/verify-live.mjs
+      - uses: actions/upload-artifact@v4
+        if: always() && github.event_name != 'pull_request'
+        with:
+          name: pages-settings
+          path: /tmp/pages-settings.json
+          if-no-files-found: ignore
